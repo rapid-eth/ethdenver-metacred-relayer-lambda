@@ -18,12 +18,11 @@ exports.handler = async (ev) => {
         const funderContract = new ethers.Contract(funderContractAddress, DappFunderABI, provider)
 
         // sendTransaction
-        console.log(process.env.SIGNER_PRIV_KEY)
         const signerWallet = new ethers.Wallet(process.env.SIGNER_PRIV_KEY, provider)
 
         let connected = funderContract.connect(signerWallet)
-        let tx = await connected.executeMetaTransaction(encodedMTX, signature)
-
+        let tx = await connected.executeMetaTransaction(encodedMTX, signature, {gasLimit:5000000})
+å
         return success({ tx })
     }
     
